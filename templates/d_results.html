@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forecast Results</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        h2, h3,h4 {
+            text-align: center;
+            margin-top: 10px;
+        }
+     
+        a {
+            display: inline-block;
+            margin-bottom: 15px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .summary {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: center;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            margin-bottom: 20px;
+        }
+        .metrics {
+            text-align: center;
+            font-size: 1.1em;
+            margin: 15px 0;
+        }
+        .metrics p {
+            margin: 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        @media (max-width: 768px) {
+            th, td {
+                padding: 8px;
+                font-size: 0.9em;
+            }
+            h2, h3 {
+                font-size: 1.5em;
+            }
+            iframe {
+                height: 400px;
+            }
+            .metrics {
+                font-size: 1em;
+            }
+        }
+        @media (max-width: 480px) {
+            th, td {
+                padding: 6px;
+                font-size: 0.8em;
+            }
+            h2, h3 {
+                font-size: 1.3em;
+            }
+            a {
+                font-size: 1em;
+            }
+            .metrics {
+                font-size: 0.9em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <a href="/forcastindex">Back </a>
+
+        <h2>Teja Variety Forecast Results</h2>
+        <iframe src="{{ url_for('static', filename='forecast_plot.html') }}" width="100%" height="600"></iframe>
+     <!-- Future Forecast Table -->
+     <h3>Future Forecasted Prices (Next 365 Days)</h3>
+     <table border="1">
+         <tr>
+             <th>Date</th>
+             <th>Forecasted Price (Per Qtl)</th>
+         </tr>
+         {% for row in results.future_forecast %}
+         <tr>
+             <td>{{ row.Date.strftime('%Y-%m-%d') }}</td>
+             <td>{{ row['Forecasted Price (Per Qtl)'] |round(2) }}</td>
+         </tr>
+         {% endfor %}
+     </table>
+        <!-- Display historical forecast errors and accuracy -->
+        <h3>Forecast Accuracy Metrics</h3>
+        <h4>Mean Absolute Error (MAE): {{ results.mae | round(2) }}</h4>
+        <h4>Accuracy: {{ results.accuracy | round(2) }}%</h4>
+    
+        <!-- Detailed Table for Historical Errors -->
+        <table border="1">
+            <tr>
+                <th>Date</th>
+                <th>Actual Price (Per Qtl) .Rs/-</th>
+                <th>Forecasted Price (Per Qtl) .Rs/-</th>
+                <th>Error (Per Tons)</th>
+                <th>Absolute Error (Per Tons)</th>
+                <th>Absolute Percentage Error (Per Tons)</th>
+                <th>Accuracy Percentage (Per Tons)</th>
+            </tr>
+            {% for row in results.detailed_table %}
+            <tr>
+                <td>{{ row.ds.strftime('%Y-%m-%d') }}</td>
+                <td>{{ row.y }}</td>
+                <td>{{ row.yhat  | round(2)}}</td>
+                <td>{{ row['Error (Per Tons)'] | round(2) }}</td>
+                <td>{{ row['Abs Error (Per Tons)'] | round(2) }}</td>
+                <td>{{ row['Abs Percentage Error (Per Tons)'] | round(2) }}</td>
+                <td>{{ row['Accuracy Percentage (Per Tons)'] | round(2)}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    
+   
+    
+        <!-- Embed Forecast Plot -->
+
+</body>
+</html>

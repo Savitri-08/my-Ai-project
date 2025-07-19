@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        select, input[type="number"], input[type="text"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        @media (max-width: 500px) {
+            form {
+                padding: 15px;
+            }
+        }
+        <style>
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+        h6 {
+            font-size: 16px;
+            color: #555;
+            font-style: italic;
+            text-align: center;
+        }
+    </style>
+    </style>
+</head>
+<body>
+    <a href="/">Back to Home</a>
+    <h1>Price Prediction</h1>
+    <h6 style="font-style: italic; color: #555;">(This prediction works perfectly only for the next 1 year)</h6>
+    
+    <form action="/predict" method="post">
+        <label for="variety">Variety:</label>
+        <select id="variety" name="variety" required>
+            <option value="LCA-334">LCA-334</option>
+            <option value="G-274">G-274</option>
+            <option value="BYD-335">BYD-335</option>
+            <option value="Teja">Teja</option>
+        </select>
+        
+        <label for="model_name">Model:</label>
+        <select id="model_name" name="model_name" required>
+            <option value="RandomForest">Random Forest</option>
+            <option value="GradientBoosting">Gradient Boosting</option>
+        </select>
+        
+        <label for="year">Year:</label>
+        <input type="number" id="year" name="year" required>
+
+        <label for="year">Area in Acre</label>
+        <input type="number" id="area" name="area" required>
+        <label for="week">Week (e.g., W01):</label>
+        <input type="text" id="week" name="week" required pattern="W\d{2}">
+        
+        <input type="submit" value="Predict">
+    </form>
+</body>
+</html>

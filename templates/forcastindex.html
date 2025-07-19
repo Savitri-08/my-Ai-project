@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Intelligence</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            background-image: url('/static/images/bb.png');
+            margin: 0;
+           
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #fff; /* White text color for better contrast */
+            text-align: center;
+            perspective: 1000px; /* Set perspective for 3D effect */
+        }
+
+
+        
+
+        .container {
+            z-index: 1; /* Ensures your content appears above the background */
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-top: 30px;
+            color: rgb(255, 255, 255);
+            text-shadow: 2px 2px 4px rgba(0, 2, 5, 0.3); /* Add a subtle shadow to the text */
+            background-color: #026417;
+            border-radius: 30px;
+            padding: 10px 20px;
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            margin: 10px 0; /* Add vertical spacing between buttons */
+            border: none;
+            border-radius: 30px; /* Rounded button */
+            background: linear-gradient(45deg, #ff416c, #026417); /* Gradient button */
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 400px; /* Set a max width for larger screens */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add button shadow */
+        }
+
+        .button i {
+            margin-right: 10px;
+        }
+
+        .button:hover {
+            transform: translateY(-3px); /* Lift the button on hover */
+            background: linear-gradient(45deg, #ff6a88, #ff4e50); /* Slightly different gradient on hover */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+        }
+
+        p {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        a {
+            color: #1e0606;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .button {
+                font-size: 1.2rem;
+                padding: 12px 25px;
+            }
+
+            .gif {
+                margin-top: 20px;
+                width: 100%; /* Adjust GIF to full width for smaller screens */
+            }
+        }
+
+        .gif {
+            width: 100%; /* Width of the GIF */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 15px; /* Rounded corners */
+            transition: transform 0.3s ease; /* Smooth transition for scaling and movement */
+        margin-top:40px;
+     }
+
+        .gif:hover {
+            transform: translateX(-10px) rotateY(-10deg) scale(1.05); /* Move the GIF 20px to the right and rotate slightly */
+        }
+    </style>
+</head>
+<body>
+
+    <p><a href="/"><i class="fas fa-arrow-left"></i> Go back to Home</a></p>
+
+    <div class="container">
+        <header>
+            <h1> Prophet model Forecasting  of Red Chilli Price</h1>
+        </header>
+
+        <div class="row align-items-center">
+            <!-- Left column for buttons -->
+            <div class="col-md-6 text-center">
+                <img src="/static/images/aa.gif" alt="Chilli Forecasting" class="gif">
+            </div>
+            
+            <!-- Right column for image -->
+            <div class="col-md-6 text-center">
+          
+                <button class="button w-100" onclick="window.location.href='/forecasting24'">
+                    <i class="fas fa-chart-line"></i> Forecasting of Overall Red Chilli Price 
+                </button>
+                <br/>
+                <button class="button w-100" onclick="window.location.href='/forecasting12'">
+                    <i class="fas fa-chart-line"></i> Forecasting of Red Chilli Price  Variety Wise
+                </button>
+           <button class="button w-100" onclick="window.location.href='/day'">
+                    <i class="fas fa-chart-line"></i> Day Wise Forecasting for Teja
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

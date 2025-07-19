@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forecasting Results</title>
+    <!-- Include Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+     h1, h3 {
+            text-align: center;
+        }
+
+        /* Container for the tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        /* Ensure the content adjusts for smaller screens */
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Plot container */
+        .plot-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        /* Responsive for smaller devices */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            table th, table td {
+                padding: 8px;
+                font-size: 0.9em;
+            }
+
+            .table-container {
+                overflow-x: scroll;
+            }
+        }
+
+        /* Smaller devices */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.2em;
+            }
+
+            table th, table td {
+                font-size: 0.8em;
+            }
+
+            .plot-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/forcastindex">Back </a>
+    <h1>Forecasting of Red Chilli Price  Variety Wise</h1>
+    
+    {% if figures %}
+    {% for figure in figures %}
+        <div id="plot{{ loop.index }}" style="margin-bottom: 40px;"></div>
+        <script>
+            const graphJson{{ loop.index }} = {{ figure | safe }};
+            Plotly.newPlot('plot{{ loop.index }}', graphJson{{ loop.index }}.data, graphJson{{ loop.index }}.layout);
+        </script>
+    {% endfor %}
+    <h3>
+       
+    </h3>
+{% else %}
+
+{% endif %}
+
+    <!-- Display accuracy summary -->
+    <h3>Accuracy Summary</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Variety</th>
+                <th> Accuracy</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for summary in accuracy_summary %}
+                <tr>
+                    <td>{{ summary.variety }}</td>
+                    <td>{{ summary.avg_accuracy |round(2) }}%</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Display forecast data table -->
+    <h3>Predict/Forecast Data</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Actual Price(Per Tons)</th>
+                <th>Predict/Forecast Price(Per Tons)  .Rs/-</th>
+                <th>Error(Per Tons) .Rs/-</th>
+                <th>Abs Error(Per Tons)</th>
+                <th>Abs Percentage Error(Per Tons)</th>
+                <th>Accuracy Percentage(Per Tons)</th>
+                <th>Variety</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in forecast_data %}
+                <tr>
+                    <td>{{ row.ds.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ row.actual }}</td>
+                    <td>{{ row.yhat | round(2)}}</td>
+                    <td>{{ row.error |round(2) }}</td>
+                    <td>{{ row.abs_error|round(2)  }}</td>
+                    <td>{{ row.abs_percentage_error |round(2)  }}%</td>
+                    <td>{{ row.accuracy |round(2)  }}%</td> <!-- Accuracy column -->
+                    <td>{{ row.variety }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+
+
+
+
+
+
+
+
+
+
+        
+    </table>
+</body>
+</html>

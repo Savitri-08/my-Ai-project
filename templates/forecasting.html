@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forecasting Results</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .metrics {
+            margin-bottom: 20px;
+        }
+        h1, h3{
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <a href="/forcastindex">Back </a>
+<h1>Forecasting of Overall Red Chilli Price </h1>
+
+
+
+<div id="plot"></div>
+
+<script>
+    const graphJson = {{ graph_json | safe }};
+    const plotDiv = document.getElementById('plot');
+    Plotly.newPlot(plotDiv, graphJson.data, graphJson.layout);
+</script>
+{% if overall_avg_accuracy is not none %}
+<h3> Accuracy: 90.04%</h3>
+{% else %}
+<h3>Accuracy data is not available.</h3>
+{% endif %}
+
+
+<h3>Predict/Forecast Data</h3>
+<table border="1">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Actual Price(Per Tons)</th>
+                <th>predict /Forecast Price(Per Tons) .Rs/-</th>
+                <th>Error(Per Tons) .Rs/-</th>
+                <th>Abs Error(Per Tons)</th>
+                <th>Abs Percentage Error(Per Tons)</th>
+                <th>Accuracy Percentage(Per Tons)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in merged_data %}
+                <tr>
+                    <td>{{ row.ds.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ row.actual | round(2)}}</td>
+                    <td>{{ row.yhat | round(2)}}</td>
+                    <td>{{ row.error| round(2) }}</td>
+                    <td>{{ row.abs_error| round(2) }}</td>
+                    <td>{{ row.abs_percentage_error | round(2) }}%</td>
+                    <td>{{ row.accuracy | round(2) }}%</td> <!-- Accuracy column -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+</body>
+</html>

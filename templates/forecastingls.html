@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forecasting Prices</title>
+    <!-- Include Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Forecasting Prices for Different Varieties</h1>
+    {% for graphJSON in figures %}
+        <div id="graph{{ loop.index }}" style="height: 500px;"></div>
+        <script>
+            var graphJSON = {{ graphJSON|safe }};
+            Plotly.newPlot('graph{{ loop.index }}', graphJSON.data, graphJSON.layout);
+        </script>
+    {% endfor %}
+</body>
+</html>
